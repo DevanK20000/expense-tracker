@@ -1,23 +1,33 @@
 import 'package:flutter/material.dart';
 
-class NewTransaction extends StatelessWidget {
+class NewTransaction extends StatefulWidget {
   final Function addTx;
-  final titleController = TextEditingController();
-  final amountController = TextEditingController();
 
   NewTransaction(this.addTx);
+
+  @override
+  _NewTransactionState createState() => _NewTransactionState();
+}
+
+class _NewTransactionState extends State<NewTransaction> {
+  final titleController = TextEditingController();
+
+  final amountController = TextEditingController();
+
   void onSubmit() {
     final enteredTitle = titleController.text;
-    final enteredAmount = double.parse(titleController.text);
+    final enteredAmount = double.parse(amountController.text);
 
     if (enteredTitle.isEmpty || enteredAmount <= 0) {
       return;
     }
 
-    addTx(
+    widget.addTx(
       enteredTitle,
       enteredAmount,
     );
+
+    Navigator.of(context).pop();
   }
 
   @override
@@ -35,22 +45,23 @@ class NewTransaction extends StatelessWidget {
                 controller: titleController,
                 onSubmitted: (_) => onSubmit,
                 // onChanged: (value) => titleInput = value, //use controller instead
-                cursorColor: Colors.purple,
+                //cursorColor: Colors.purple,
                 decoration: InputDecoration(
                   labelText: 'Title',
-                  labelStyle: TextStyle(color: Colors.purple),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.purple,
-                      width: 2,
-                    ),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.purple,
-                      width: 2,
-                    ),
-                  ),
+                  border: OutlineInputBorder(),
+                  //labelStyle: TextStyle(color: Colors.purple),
+                  // focusedBorder: OutlineInputBorder(
+                  //   borderSide: BorderSide(
+                  //     color: Colors.purple,
+                  //     width: 2,
+                  //   ),
+                  // ),
+                  // enabledBorder: OutlineInputBorder(
+                  //   borderSide: BorderSide(
+                  //     color: Colors.purple,
+                  //     width: 2,
+                  //   ),
+                  //),
                 ),
               ),
             ),
@@ -64,26 +75,27 @@ class NewTransaction extends StatelessWidget {
                 cursorColor: Colors.purple,
                 decoration: InputDecoration(
                   labelText: 'Amount',
-                  labelStyle: TextStyle(color: Colors.purple),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.purple,
-                      width: 2,
-                    ),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.purple,
-                      width: 2,
-                    ),
-                  ),
+                  border: OutlineInputBorder(),
+                  //labelStyle: TextStyle(color: Colors.purple),
+                  // focusedBorder: OutlineInputBorder(
+                  //   borderSide: BorderSide(
+                  //     color: Colors.purple,
+                  //     width: 2,
+                  //   ),
+                  // ),
+                  // enabledBorder: OutlineInputBorder(
+                  //   borderSide: BorderSide(
+                  //     color: Colors.purple,
+                  //     width: 2,
+                  //   ),
+                  // ),
                 ),
               ),
             ),
             TextButton(
               onPressed: onSubmit,
               child: Text('Add Transactions'),
-              style: TextButton.styleFrom(primary: Colors.purple),
+              //style: TextButton.styleFrom(primary: Colors.purple),
             )
           ],
         ),
