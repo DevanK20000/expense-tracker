@@ -19,7 +19,7 @@ class Chart extends StatelessWidget {
           totalSum += recentTransactions[i].amount;
         }
       }
-      return {'day': DateFormat.E().format(weekDay), 'amount': totalSum};
+      return {'day': DateFormat.EEEE().format(weekDay), 'amount': totalSum};
     }).reversed.toList();
   }
 

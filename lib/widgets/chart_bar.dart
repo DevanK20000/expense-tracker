@@ -21,9 +21,10 @@ class ChartBar extends StatelessWidget {
         ),
         SizedBox(height: 4),
         Container(
-          height: 60,
-          width: 10,
+          height: 100,
+          width: 20,
           child: Stack(
+            alignment: AlignmentDirectional.bottomStart,
             children: [
               Container(
                 decoration: BoxDecoration(
@@ -41,11 +42,25 @@ class ChartBar extends StatelessWidget {
                   ),
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 0),
+                child: RotatedBox(
+                    quarterTurns: 3,
+                    child: FittedBox(
+                      child: Text(
+                        label,
+                        style: TextStyle(
+                          fontFamily: 'OpenSans',
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    )),
+              ),
             ],
           ),
         ),
-        SizedBox(height: 4),
-        Text(label),
+        //SizedBox(height: 4),
+        //Text(label),
       ],
     );
   }
