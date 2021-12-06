@@ -88,24 +88,40 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void _deletTransaction(String id) {
+    setState(() {
+      _userTransactions.removeWhere((tx) => tx.id == id);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    final appbar = AppBar(
+      title: Text('Personal Expense'),
+      actions: [
+        IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () => _startNewTransaction(context))
+      ],
+    );
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Personal Expense'),
-        actions: [
-          IconButton(
-              icon: Icon(Icons.add),
-              onPressed: () => _startNewTransaction(context))
+      appBar: appbar,
+      body: Column(
+        children: [
+          Container(
+            height: (MediaQuery.of(context).size.height -
+                    appbar.preferredSize.height -
+                    MediaQuery.of(context).padding.top) *
+                0.325,
+            child: Chart(_recentTransactions),
+          ),
+          Container(
+              height: (MediaQuery.of(context).size.height -
+                      appbar.preferredSize.height -
+                      MediaQuery.of(context).padding.top) *
+                  0.675,
+              child: TransactionList(_userTransactions, _deletTransaction)),
         ],
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Chart(_recentTransactions),
-            TransactionList(_userTransactions),
-          ],
-        ),
       ),
       // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(

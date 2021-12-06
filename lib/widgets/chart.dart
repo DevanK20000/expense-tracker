@@ -23,7 +23,7 @@ class Chart extends StatelessWidget {
     }).reversed.toList();
   }
 
-  double get totalSpeding {
+  double get totalSpending {
     return groupedTransactionValues.fold(0.0, (sum, item) {
       return sum + item['amount'];
     });
@@ -33,24 +33,47 @@ class Chart extends StatelessWidget {
   Widget build(BuildContext context) {
     print(groupedTransactionValues);
     return Card(
-      elevation: 5,
-      margin: EdgeInsets.all(10),
+      //elevation: 5,
+      margin: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
       child: Padding(
         padding: EdgeInsets.all(10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: groupedTransactionValues.map((data) {
-            return Flexible(
-              fit: FlexFit.tight,
-              child: ChartBar(
-                data['day'],
-                data['amount'],
-                totalSpeding == 0.0
-                    ? 0.0
-                    : (data['amount'] as double) / totalSpeding,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: groupedTransactionValues.map((data) {
+                return Flexible(
+                  fit: FlexFit.tight,
+                  child: ChartBar(
+                    data['day'],
+                    data['amount'],
+                    totalSpending == 0.0
+                        ? 0.0
+                        : (data['amount'] as double) / totalSpending,
+                  ),
+                );
+              }).toList(),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Total Spending last 7 days'),
+                  Text(
+                    '\$$totalSpending',
+                    style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                      fontSize: 30,
+                      fontFamily: 'Quicksand',
+                      fontWeight: FontWeight.w300,
+                    ),
+                  )
+                ],
               ),
-            );
-          }).toList(),
+            )
+          ],
         ),
       ),
     );
